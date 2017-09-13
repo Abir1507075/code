@@ -300,3 +300,53 @@ int main()
 
 
 }
+//474B - Worms
+//
+//
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+int a[1000005];
+int bi_search(int hi,int lo,int n)
+{
+    while(lo<=hi)
+    {
+        int mid=(hi+lo)/2;
+        if(mid==n)return a[mid];
+        else if(mid>n)
+        {
+            hi=mid-1;
+        }
+        else if(mid<n)
+        {
+            lo=mid+1;
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+
+    int b=1;
+    for(int i=1;i<=n;i++)
+    {
+        int q;
+        cin>>q;
+        for(int j=0;j<q;j++,b++)
+        {
+            a[b]=i;
+        }
+    }
+    int m;
+    cin>>m;
+    for(int i=0;i<m;i++)
+    {
+        int q;
+        cin>>q;
+        cout<<bi_search(b,1,q)<<endl;
+    }
+
+
+}
