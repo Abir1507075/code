@@ -1,0 +1,4 @@
+git init            will initialize a .git file to the correspondin path.
+git status          will show us therrent situation of the git repository, workspace .  
+git add             will save a file in the staging area.
+git commit -m ""    will save the change it the repository from the staging area.
