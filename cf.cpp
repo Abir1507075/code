@@ -179,3 +179,120 @@ int main()
     }
 
 }
+
+
+//solution 727B - Bill Total Value
+//
+//
+//
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+bool number(char c)
+{
+    if((c>='0'&&c<='9')||c=='.')return true;
+    else return false;
+}
+
+bool cha(char c)
+{
+    if(c>='a'&&c<='z')return true;
+    else return false;
+}
+
+double make_number(char c)
+{
+    return (c-48);
+}
+int main()
+{
+    string s;
+    cin>>s;
+    string num="";
+    double ans=0;
+    int frac=0;
+    for(int i=0;i<s.size();i++)
+    {
+        while(cha(s[i])&&i<s.size())
+        {
+            i++;
+        }
+        while(number(s[i])&&i<s.size())
+        {
+            num=num+s[i];
+            i++;
+        }
+        int mod=1; double temp=0;
+        int point=0;
+        if(num[num.size()-3]=='.')
+        {
+           // temp= make_number(num[num.size()-1])/100+ make_number(num[num.size()-2])/10;
+
+            point = make_number(num[num.size()-1])+ make_number(num[num.size()-2])*10;
+            for(int j=num.size()-4;j>=0;j--)
+            {
+                     if(num[j]=='.')continue;
+                {
+
+                    double n=make_number(num[j]);
+                    temp=temp+n*mod;
+                    mod=mod*10;
+                }
+            }
+        }
+        else
+        {
+            for(int j=num.size()-1;j>=0;j--)
+            {
+                 if(num[j]=='.')continue;
+                    double n=make_number(num[j]);
+                    temp=temp+n*mod;
+                    mod=mod*10;
+            }
+        }
+        //cout<<"temp "<<temp<<endl;
+        ans=ans+temp;
+        frac=frac+point;
+        num="";
+    }
+    //printf("%.2lf\n",ans);
+    //cout<<frac<<endl;
+    int difect;
+    int hold=0;
+    hold=frac%100;
+    frac=frac/100;
+    //cout<<frac<<endl;
+    //cout<<ans<<endl;
+    int test=ans;
+    test=test+frac;
+    //cout<<test<<endl;
+    {
+        int temp=test;
+        int cnt=0;
+        vector<char>v;
+        while(temp)
+        {
+            if(cnt==3)
+            {
+                v.push_back('.');
+                cnt=0;
+            }
+            int p=temp%10;
+            char l=p+48;
+            v.push_back(l);
+            temp=temp/10;
+            cnt++;
+        }
+        if(v.size()==0)cout<<'0';
+        for(int i=v.size()-1;i>=0;i--)
+        {
+            cout<<v[i];
+        }
+        if(hold==0&&frac==0)return 0;
+        if(hold)printf(".%02d\n",hold);
+        else if(test==ans&&!hold)printf(".%02d\n",frac);
+    }
+
+
+}
