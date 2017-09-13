@@ -1,2 +1,3 @@
-this is my fist github file.
-and this is to pull the file.
+Some command of using github will be here.
+
+Solution of different oj will appear here.
