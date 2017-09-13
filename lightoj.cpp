@@ -1,3 +1,7 @@
+//1083 - Histogram
+//
+//
+
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long int
@@ -72,3 +76,70 @@ int main()
  
     }
 }
+
+
+//1082 - Array Queries
+//
+//
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define mx 1000000
+ 
+ 
+void tree(int n[],int result[],int node,int lo,int hi)
+{
+    if(lo==hi)
+    {
+        result[node]=n[lo];
+        return;
+    }
+    int mid=(lo+hi)/2;
+    int left=node*2;
+    int right=(node*2)+1;
+    tree(n,result,right,mid+1,hi);
+    tree(n,result,left,lo,mid);
+    result[node]= result[left]<=result[right] ? result[left]:result[right];
+}
+int query(int n[],int result[],int node,int lo,int hi,int i,int j)
+{
+    if(i<=lo&&j>=hi)return result[node];
+ 
+    if(i>hi||j<lo) return mx;
+    int mid=(hi+lo)/2;
+    int right= node*2 +1;
+    int left=node*2;
+    int p1=query(n,result,left,lo,mid,i,j);
+    int p2=query(n,result,right,mid+1,hi,i,j);
+ 
+    return p1<=p2? p1: p2;
+ 
+}
+int main()
+{
+//    freopen("input.txt","r",stdin);
+//    freopen("output.txt","w",stdout);
+    int tst;
+    scanf("%d",&tst);
+    for(int t=1;t<=tst;t++)
+    {
+        int a,q;
+        scanf("%d %d",&a,&q);
+        int n[a+5];
+        int result[a*3];
+        for(int i=1;i<=a;i++)
+        {
+            scanf("%d",&n[i]);
+        }
+        tree(n,result,1,1,a);
+        printf("Case %d:\n",t);
+        for(int i=0;i<q;i++)
+        {
+            int x,y;
+            scanf("%d %d",&x,&y);
+            printf("%d\n",query(n,result,1,1,a,x,y));
+ 
+        }
+    }
+}
+
